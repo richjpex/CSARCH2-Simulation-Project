@@ -63,6 +63,8 @@ class CacheSimulatorGUI:
         self.text_log = tk.Text(self.root, height=10, width=40, state=tk.DISABLED)
         self.text_log.grid(row=12, column=0, columnspan=2, pady=10)
 
+        #TODO: add snapshot of cache memory
+
         # Configure column and row weights
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
