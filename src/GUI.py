@@ -34,7 +34,7 @@ class CacheSimulatorGUI:
         # Labels for simulation results
         self.output_labels = []
         labels_text = [
-            "Block Size:",
+            "Memory Access Count:",
             "Cache Hit Count:",
             "Cache Miss Count:",
             "Cache Hit Rate:",
@@ -81,7 +81,7 @@ class CacheSimulatorGUI:
             results = self.cache_simulator.run_simulation(memory_access_sequence)
 
             # Update the GUI labels with simulation results
-            self.output_labels[0]["text"] = f"Block Size (n): {32 // memory_block}"
+            self.output_labels[0]["text"] = f"Memory Access Count: {results['hits'] + results['misses']}"
             self.output_labels[1]["text"] = f"Cache Hit Count: {results['hits']}"
             self.output_labels[2]["text"] = f"Cache Miss Count: {results['misses']}\n"
             self.output_labels[3]["text"] = f"Cache Hit Rate: {results['cache_hit_rate']:.2%}"
@@ -97,6 +97,7 @@ class CacheSimulatorGUI:
             pass
 
     def display_cache_log(self):
+        # TODO: Simulation logic for cache memory log (replace this with your actual simulation code)
         # Display the cache simulation log in the text area
         cache_memory_log = self.generate_cache_log()
         self.text_log.config(state=tk.NORMAL)
@@ -113,7 +114,9 @@ class CacheSimulatorGUI:
         # Generate the cache simulation log
         cache_memory_log = []
         for i, memory_address in enumerate(self.memory_access_sequence):
-            cache_block = (memory_address // self.memory_blocks) % self.cache_blocks + 1
+            cache_block = (memory_address // self.cache_simulator.block_size) % self.cache_blocks + 1
             cache_memory_log.append(f"Memory Address Block {memory_address} in Cache: {i % self.cache_blocks + 1}")
 
         return cache_memory_log
+
+    # TODO: snapshot of cache memory
