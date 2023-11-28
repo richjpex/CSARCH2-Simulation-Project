@@ -69,7 +69,7 @@ class CacheSimulatorGUI:
 
             # Initialize the cache simulator
             self.cache_simulator = CacheSimulator()
-            self.cache_blocks = 32
+            self.cache_blocks = 12
 
             # Generate a random memory access sequence
             memory_access_sequence = [

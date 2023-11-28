@@ -34,7 +34,7 @@ class CacheSimulator:
         for address in memory_access_sequence:
             block_address, offset = divmod(address, self.block_size)
             set_index = (block_address // self.block_size) % self.num_sets
-            tag = block_address // self.num_blocks
+            tag = block_address // self.num_sets
 
             # Check each line in the set for a hit
             hit = False
