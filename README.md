@@ -62,7 +62,7 @@ In summary, the 8-way Block Set Associative, First In First Out (8-way BSA + FIF
 - A button to run the simulation with valid input.
 - Simulation Statistics: Displays memory access count, cache hit and miss counts, cache hit and miss rates, average memory access time, and total memory access time.
 - Sequence Display: Shows the values injected into the cache.
-- Final Cache Snapshot: Displays how the memory is captured, with a log of values used for simulation visible in the terminal. A video presentation of the program's functionalities is also available.</div>
+- Final Cache Snapshot: Displays how the memory is captured, with a log of values used for simulation visible in the terminal. A video presentation of the program's functionalities is also available: https://drive.google.com/file/d/1RDN49wOqMQtzKy7dVLMwO3oKOQxx8XUj/view?usp=sharing</div>
 
 <br>
 
