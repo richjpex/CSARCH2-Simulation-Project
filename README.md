@@ -11,15 +11,9 @@ The program is an 8-way BSA + FIFO cache simulation. It consists of: 3 test case
 N is the number of cache blocks.
 
 ## Test Case A
-Implementation of Sequential Sequence: up to 2n Cache Blocks. Sequence repeats four times.
-
-[Screenshot of program performing it? Then Details?]
-
-
+The Sequential Sequence uses up to 2n cache blocks and it repeats the sequence 4 times. BSA is the best to use for the Sequential Sequence and FIFO is also good for the Sequential Sequence. The result will have a good hit rate count because of how it access the Sequential Sequence pattern.
 ## Test Case B
-Implementation of Random Sequence: Containing 4n blocks.
-
-
+The Random Sequence uses up to 4n cache blocks and it's at random. BSA may not be as good because of its random pattern. FIFO is also not that good because the sequence is at random, the blocks that are loaded in may not be replaced again. This will result in a lower hit rate count.
 ## Test Case C
-Implementation of Mid-repeat blocks.
-
+The Mid-Repeat Blocks starts at block 0, then it repeats the sequence in the middle two times up to n-1 blocks, after
+it continues up to 2n. Then, repeat the sequence four times. BSA is moderately good because of the repeated middle sequence. The repeated middle sequence allows for the hit rate count to increase. FIFO is also moderate because it will replace the blocks that were loaded in first and repeat the first part of the sequence.
