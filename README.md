@@ -30,6 +30,8 @@ Outputs
 * Cache Miss Rate
 * Average Memory Access Time
 * Total Memory Access Time
+* Sequence
+* Snapshot of Final Cache Memory
 <br>
 
 ## What is 8-way Block Set Associative, First In First Out (8-way BSA + FIFO)
