@@ -27,6 +27,10 @@ class CacheSimulator:
         self.cache_hit_count = 0
         self.cache_miss_count = 0
 
+        # Step-by-step snapshot variables
+        self.snapshot_canvas = tk.Canvas(self.root, width=400, height=150, bg="black")
+        self.snapshot_canvas.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
+
     def setup_gui(self):
         # Test case selection
         test_case_label = tk.Label(self.root, text="Select Test Case:")
@@ -95,7 +99,7 @@ class CacheSimulator:
         for address in self.access_sequence:
             self.memory_access_count += 1
             set_index = address % (self.cache_blocks // self.set_size)
-            
+
             if address in self.cache[set_index]:
                 self.cache_hit_count += 1
             else:
@@ -105,8 +109,36 @@ class CacheSimulator:
                     self.cache[set_index].pop(0)
                 self.cache[set_index].append(address)
 
+        # Display cache snapshot
+        self.display_cache_snapshot()
+
         # Display statistics
         self.display_statistics()
+
+    def display_cache_snapshot(self):
+        self.snapshot_canvas.delete("all")  # Clear previous drawings
+
+        block_width = 30
+        block_height = 20
+        x_offset = 65
+        y_offset = 40
+
+        # Display "Final Cache Snapshot:" text
+        self.snapshot_canvas.create_text(x_offset - 45, y_offset - 20, text="Final Cache Snapshot:", anchor=tk.W, fill="white", font=("Consolas", 10, "bold"))
+
+        non_empty_cache_sets = [(i, cache_set) for i, cache_set in enumerate(self.cache) if cache_set]
+
+        for i, cache_set in non_empty_cache_sets:
+            # Draw set label
+            label_x = x_offset - 10
+            label_y = y_offset + i * (block_height + 5) + block_height // 2
+            self.snapshot_canvas.create_text(label_x, label_y, text=f"Set {i}", anchor=tk.E, fill="white", font=("Consolas", 10))
+
+            for j, address in enumerate(cache_set):
+                x = x_offset + j * (block_width + 10)
+                y = y_offset + i * (block_height + 5)
+                self.snapshot_canvas.create_rectangle(x, y, x + block_width, y + block_height, fill="lightgreen", outline="black")
+                self.snapshot_canvas.create_text(x + block_width // 2, y + block_height // 2, text=str(address), font=("Consolas", 10))
 
     def display_statistics(self):
         hit_rate = self.cache_hit_count / self.memory_access_count * 100 if self.memory_access_count > 0 else 0
@@ -129,15 +161,15 @@ class CacheSimulator:
 
     def compute_total_time(self):
         return self.cache_hit_count + self.cache_miss_count * (10)
-    
+
     def compute_average_time(self):
         total_time = self.cache_hit_count + self.cache_miss_count * (10)
         total = self.cache_hit_count + self.cache_miss_count
         return total_time / total
-    
 
 
 if __name__ == "__main__":
     root = tk.Tk()
     app = CacheSimulator(root)
+    root.resizable(width=False, height=False)
     root.mainloop()
