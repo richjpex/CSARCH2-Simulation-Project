@@ -60,7 +60,6 @@ class CacheSimulator:
 
     def generate_test_case(self):
         n = self.cache_blocks // self.set_size  # Number of sets
-        cache_blocks = self.cache_blocks
         sequence = []
 
         if self.test_case_var.get() == "a":
