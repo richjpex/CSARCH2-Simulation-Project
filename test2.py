@@ -71,11 +71,11 @@ class CacheSimulator:
             for _ in range(4 * self.memory_blocks):
                 sequence.append(random.randint(0, self.memory_blocks - 1))
         elif self.test_case_var.get() == "c":
-          n = self.memory_blocks
-          for _ in range(4):
-              sequence.extend(range(n))
-              sequence.extend(range(1, n-1))
-              sequence.extend(range(n, 2 * n))
+            n = self.memory_blocks
+            for _ in range(4):
+                sequence.extend(range(n-1))
+                sequence.extend(range(1, n))
+                sequence.extend(range(n, 2 * n))
 
         print(sequence)
         return sequence
