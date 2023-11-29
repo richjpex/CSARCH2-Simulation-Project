@@ -90,6 +90,10 @@ class CacheSimulator:
                 sequence.extend(range(1, n))
                 sequence.extend(range(n, 2 * n))
 
+        # Clear the existing content in the sequence textbox
+        self.terminal_output.config(state=tk.NORMAL)
+        self.terminal_output.delete(1.0, tk.END)
+
         # Display the sequence in the GUI
         self.terminal_output.config(state=tk.NORMAL)
         self.terminal_output.insert(tk.END, str(sequence) + "\n")
@@ -102,6 +106,7 @@ class CacheSimulator:
             self.memory_blocks = int(self.mem_blocks_entry.get())
         except ValueError:
             self.terminal_output.config(state=tk.NORMAL)
+            self.terminal_output.delete(1.0, tk.END)
             self.terminal_output.insert(tk.END, "Error: Please enter a valid number for Memory Blocks!\n")
             self.terminal_output.config(state=tk.DISABLED)
             return  # Invalid input
@@ -136,6 +141,9 @@ class CacheSimulator:
 
         # Display statistics
         self.display_statistics()
+
+        # Reset memory blocks entry
+        self.mem_blocks_entry.delete(0, tk.END)
 
     def display_cache_snapshot(self):
         self.snapshot_canvas.delete("all")  # Clear previous drawings
