@@ -83,17 +83,21 @@ class CacheSimulatorGUI:
             self.cache_simulator = CacheSimulator()
             self.cache_blocks = 32 # the default 
 
-                # Generate a random memory access sequence
-            memory_access_sequence = [
-                random.randint(0, 2 * (memory_block // 2) - 1) for _ in range(4 * (memory_block // 2))
-            ]
-            self.memory_access_sequence = memory_access_sequence
-                
             if selected_test_case == 'Sequential': 
                 #up to 2n Cache blocks, repeat four times without refreshin or something
+                memory_access_sequence = [i for i in range(0, memory_block)]*4
+                self.memory_access_sequence = memory_access_sequence
+                self.cache_blocks *= 2
+                results = self.cache_simulator.run_simulation(memory_access_sequence)
                 pass
 
             elif selected_test_case == 'Random':
+                # Generate a random memory access sequence
+                memory_access_sequence = [
+                    random.randint(0, 2 * (memory_block // 2) - 1) for _ in range(4 * (memory_block // 2))
+                ]
+                self.memory_access_sequence = memory_access_sequence
+
                 #4n Cache block?
                 self.cache_blocks *= 4
 
@@ -104,6 +108,14 @@ class CacheSimulatorGUI:
             elif selected_test_case == 'Mid-Repeating':
                 # start at 0, then repeat middle sequence to n-1 blocks, then contunue to 2n, then repeat 4 times.
                 # ie. n=8 == 0, 1,2,3,4,5,6, 1,2,3,4,5,6, 7,8,9,10,11,12,13,14,15 {4x}
+                memory_access_sequence = [0]
+                memory_access_sequence += [i for i in range(1, memory_block-1)*2]
+                memory_access_sequence += [x for x in range(memory_block, (memory_block*2)-1)]
+                memory_access_sequence *= 4
+                
+                self.memory_access_sequence = memory_access_sequence
+                self.cache_blocks *= 2
+                results = self.cache_simulator.run_simulation(memory_access_sequence)
                 pass
 
             # Update the GUI labels with simulation results
