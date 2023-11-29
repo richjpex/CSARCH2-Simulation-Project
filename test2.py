@@ -60,18 +60,17 @@ class CacheSimulator:
 
     def generate_test_case(self):
         n = self.cache_blocks // self.set_size  # Number of sets
+        cache_blocks = self.cache_blocks
         sequence = []
 
         if self.test_case_var.get() == "a":
-            for _ in range(4):
-              sequence = list(range(n * self.cache_lines))
+            sequence = list(range(self.memory_blocks)) * 4
         elif self.test_case_var.get() == "b":
             if self.memory_blocks == 0:
                 return None
-            for _ in range(4 * self.memory_blocks):
-                sequence.append(random.randint(0, self.memory_blocks - 1))
+            sequence = [random.randint(0, self.memory_blocks - 1) for _ in range(64)]
         elif self.test_case_var.get() == "c":
-            n = self.memory_blocks
+            n = self.cache_blocks // 2
             for _ in range(4):
                 sequence.extend(range(n-1))
                 sequence.extend(range(1, n))
