@@ -73,7 +73,7 @@ class CacheSimulator:
                 return None
             sequence = [random.randint(0, self.memory_blocks - 1) for _ in range(64)]
         elif self.test_case_var.get() == "c":
-            n = self.cache_blocks // 2
+            n = self.memory_blocks
             for _ in range(4):
                 sequence.extend(range(n-1))
                 sequence.extend(range(1, n))
@@ -172,12 +172,11 @@ class CacheSimulator:
         self.stats_text.config(state=tk.DISABLED)
 
     def compute_total_time(self):
-        return self.cache_hit_count + self.cache_miss_count * (10)
+        return (self.cache_hit_count * self.cache_lines) + self.cache_miss_count*self.cache_lines*11 + self.cache_miss_count
 
     def compute_average_time(self):
-        total_time = self.cache_hit_count + self.cache_miss_count * (10)
         total = self.cache_hit_count + self.cache_miss_count
-        return total_time / total
+        return self.cache_hit_count / total + (1 + self.cache_lines * 10 + 1 * self.cache_miss_count) / total
 
 
 if __name__ == "__main__":
