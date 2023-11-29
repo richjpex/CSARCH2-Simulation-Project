@@ -94,22 +94,14 @@ class CacheSimulatorGUI:
                 # Run the cache simulation for Default
                 results = self.cache_simulator.run_simulation(memory_access_sequence)
 
-                # Update the GUI labels with simulation results
-                self.output_labels[0]["text"] = f"Memory Access Count: {results['hits'] + results['misses']}"
-                self.output_labels[1]["text"] = f"Cache Hit Count: {results['hits']}"
-                self.output_labels[2]["text"] = f"Cache Miss Count: {results['misses']}\n"
-                self.output_labels[3]["text"] = f"Cache Hit Rate: {results['cache_hit_rate']:.2%}"
-                self.output_labels[4]["text"] = f"Cache Miss Rate: {results['cache_miss_rate']:.2%}"
-                self.output_labels[5]["text"] = f"Average Memory Access Time: {results['average_memory_access_time']:.2f}"
-                self.output_labels[6]["text"] = f"Total Memory Access Time: {results['total_memory_access_time']:.2f}"
-
-                # Display the cache simulation log
-                self.display_cache_log()
-
+                
             elif selected_test_case == 'Sequential':
                 #up to 2n Cache blocks, repeat four times without refreshin or something
+                self.cache_blocks *= 2
 
-                pass
+                #put in logic for repeating four times inside
+                results = self.cache_simulator.test_simulation_sequential(memory_access_sequence)
+                
             elif selected_test_case == 'Random':
                 #4n Cache block
 
@@ -117,8 +109,20 @@ class CacheSimulatorGUI:
             elif selected_test_case == 'Mid-Repeating':
                 # start at 0, then repeat middle sequence to n-1 blocks, then contunue to 2n, then repeat 4 times.
                 # ie. n=8 == 0, 1,2,3,4,5,6, 1,2,3,4,5,6, 7,8,9,10,11,12,13,14,15 {4x}
-                
                 pass
+
+            # Update the GUI labels with simulation results
+            self.output_labels[0]["text"] = f"Memory Access Count: {results['hits'] + results['misses']}"
+            self.output_labels[1]["text"] = f"Cache Hit Count: {results['hits']}"
+            self.output_labels[2]["text"] = f"Cache Miss Count: {results['misses']}\n"
+            self.output_labels[3]["text"] = f"Cache Hit Rate: {results['cache_hit_rate']:.2%}"
+            self.output_labels[4]["text"] = f"Cache Miss Rate: {results['cache_miss_rate']:.2%}"
+            self.output_labels[5]["text"] = f"Average Memory Access Time: {results['average_memory_access_time']:.2f}"
+            self.output_labels[6]["text"] = f"Total Memory Access Time: {results['total_memory_access_time']:.2f}"
+
+            # Display the cache simulation log
+            self.display_cache_log()
+
         except ValueError as e:
             # Handle the case where the user enters invalid input
             pass

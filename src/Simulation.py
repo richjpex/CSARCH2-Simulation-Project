@@ -73,3 +73,20 @@ class CacheSimulator:
             'average_memory_access_time': average_memory_access_time,
             'total_memory_access_time': total_memory_access_time
         }
+
+    def test_simulation_sequential(self, memory_access_sequence):
+        # Calculate cache hit rate, cache miss rate, average memory access time, and total memory access time
+        pass
+        cache_hit_rate = self.hits / len(memory_access_sequence)
+        cache_miss_rate = self.misses / len(memory_access_sequence)
+        average_memory_access_time = cache_hit_rate * 1 + cache_miss_rate * 10  # Placeholder values for access times
+        total_memory_access_time = len(memory_access_sequence) * average_memory_access_time
+        
+        return{
+            'hits': self.hits,
+            'misses': self.misses,
+            'cache_hit_rate': cache_hit_rate,
+            'cache_miss_rate': cache_miss_rate,
+            'average_memory_access_time': average_memory_access_time,
+            'total_memory_access_time': total_memory_access_time
+        }
