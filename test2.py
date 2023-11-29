@@ -63,18 +63,20 @@ class CacheSimulator:
         sequence = []
 
         if self.test_case_var.get() == "a":
-            # For Test Case A, generate a sequence that exceeds the cache associativity
-            sequence = list(range(2 * n * self.cache_lines))  # All misses
+            for _ in range(4):
+              sequence = list(range(n * self.cache_lines))
         elif self.test_case_var.get() == "b":
             if self.memory_blocks == 0:
                 return None
-            for _ in range(4 * self.cache_blocks):
-                sequence.append(random.randint(0, 4 * self.cache_blocks - 1))
+            for _ in range(4 * self.memory_blocks):
+                sequence.append(random.randint(0, self.memory_blocks - 1))
         elif self.test_case_var.get() == "c":
-            for _ in range(4):
-                sequence.extend(range(n))
-                sequence.extend(range(1, n))
-                sequence.extend(range(n, 2 * n))
+          n = self.memory_blocks
+          for _ in range(4):
+              sequence.extend(range(n))
+              sequence.extend(range(1, n-1))
+              sequence.extend(range(n, 2 * n))
+
         print(sequence)
         return sequence
 
@@ -115,12 +117,12 @@ class CacheSimulator:
         total_access_time = self.compute_total_time()
 
         stats_info = f"Memory Access Count: {self.memory_access_count}\n" \
-                     f"Cache Hit Count: {self.cache_hit_count}\n" \
-                     f"Cache Miss Count: {self.cache_miss_count}\n" \
-                     f"Cache Hit Rate: {hit_rate:.2f}%\n" \
-                     f"Cache Miss Rate: {miss_rate:.2f}%\n" \
-                     f"Average Memory Access Time: {avg_access_time:.2f} ns\n" \
-                     f"Total Memory Access Time: {total_access_time:.2f} ns"
+                    f"Cache Hit Count: {self.cache_hit_count}\n" \
+                    f"Cache Miss Count: {self.cache_miss_count}\n" \
+                    f"Cache Hit Rate: {hit_rate:.2f}%\n" \
+                    f"Cache Miss Rate: {miss_rate:.2f}%\n" \
+                    f"Average Memory Access Time: {avg_access_time:.2f} ns\n" \
+                    f"Total Memory Access Time: {total_access_time:.2f} ns"
 
         self.stats_text.config(state=tk.NORMAL)
         self.stats_text.delete(1.0, tk.END)
