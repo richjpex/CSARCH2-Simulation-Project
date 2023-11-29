@@ -75,23 +75,23 @@ class CacheSimulatorGUI:
         try:
 
             selected_test_case = self.selected_test_case.get()
-            
-            if selected_test_case == 'Default':
-            # Get the number of memory blocks from the user input
-                memory_block = int(self.memory_block_entry.get())
-                self.memory_blocks = memory_block
 
-                # Initialize the cache simulator
-                self.cache_simulator = CacheSimulator()
-                self.cache_blocks = 32 # the default 
+            # Get the number of memory blocks from the user input
+            memory_block = int(self.memory_block_entry.get())
+            self.memory_blocks = memory_block
+
+            # Initialize the cache simulator
+            self.cache_simulator = CacheSimulator()
+            self.cache_blocks = 32 # the default 
 
                 # Generate a random memory access sequence
-                memory_access_sequence = [
-                    random.randint(0, 2 * (memory_block // 2) - 1) for _ in range(4 * (memory_block // 2))
-                ]
-                self.memory_access_sequence = memory_access_sequence
+            memory_access_sequence = [
+                random.randint(0, 2 * (memory_block // 2) - 1) for _ in range(4 * (memory_block // 2))
+            ]
+            self.memory_access_sequence = memory_access_sequence
 
-                # Run the cache simulation
+            if selected_test_case == 'Default':
+                # Run the cache simulation for Default
                 results = self.cache_simulator.run_simulation(memory_access_sequence)
 
                 # Update the GUI labels with simulation results
@@ -105,11 +105,19 @@ class CacheSimulatorGUI:
 
                 # Display the cache simulation log
                 self.display_cache_log()
+
             elif selected_test_case == 'Sequential':
+                #up to 2n Cache blocks, repeat four times without refreshin or something
+
                 pass
             elif selected_test_case == 'Random':
+                #4n Cache block
+
                 pass
             elif selected_test_case == 'Mid-Repeating':
+                # start at 0, then repeat middle sequence to n-1 blocks, then contunue to 2n, then repeat 4 times.
+                # ie. n=8 == 0, 1,2,3,4,5,6, 1,2,3,4,5,6, 7,8,9,10,11,12,13,14,15 {4x}
+                
                 pass
         except ValueError as e:
             # Handle the case where the user enters invalid input
