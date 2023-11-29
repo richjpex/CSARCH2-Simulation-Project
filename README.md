@@ -28,6 +28,31 @@ In summary, the 8-way Block Set Associative, First In First Out (8-way BSA + FIF
 
 *This is how the algorithm should work.*
 
+## Program Specifications
+Common Specifications
+ * 32 Cache Blocks
+ * 16 Cache Line
+ *  non load-through Read Policy
+ * First In First Out (FIFO) Block Replacement Algorithm
+ * 8-way Set Associative
+ * 8 sets
+ * 10ns Memory Access Time
+ * 1ns Cache Access Time
+
+Inputs
+* Memory Blocks - Enter the value of memory blocks
+* Test Case - User can choose either Sequential, Random or Mid-Repeat
+
+Outputs
+* Memory Access Count
+* Cache Hit Count
+* Cache Miss Count
+* Cache Hit Rate
+* Cache Miss Rate
+* Average Memory Access Time
+* Total Memory Access Time
+
+
 ## Program Overview
 
 <div align="justify">The program is an 8-way BSA + FIFO cache simulation implemented in Python. It includes:
@@ -38,20 +63,20 @@ In summary, the 8-way Block Set Associative, First In First Out (8-way BSA + FIF
 - Sequence Display: Shows the values injected into the cache.
 - Final Cache Snapshot: Displays how the memory is captured, with a log of values used for simulation visible in the terminal. A video presentation of the program's functionalities is also available.</div>
 
-<br><br>
+<br>
 
-# Detailed Analysis of Test Cases
+## Detailed Analysis of Test Cases
 
 *N is the number of cache blocks.*
 
-## Test Case A
+### Test Case A
 
 <div align="justify">The Sequential Sequence utilizes up to 2n cache blocks, repeating the sequence 4 times. The sequence access pattern exhibits strong "spatial locality," favoring an 8-way Block Set Associative structure. With a closer numbering sequence, more elements can be loaded, resulting in a higher hit count. For instance, if n = 4, the sequence would be 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, repeated 4 times.</div>
 
-## Test Case B
+### Test Case B
 
 <div align="justify">The Random Sequence utilizes up to 4n cache blocks with a random access pattern. The randomness challenges the effectiveness of 8-way BSA and FIFO, leading to a lower hit rate. For example, if n = 4, the sequence would be randomly generated with 4(4) = 16 unique block addresses.</div>
 
-## Test Case C
+### Test Case C
 
 <div align="justify">The Mid-Repeat Blocks start at block 0, repeat the sequence in the middle twice up to n-1 blocks, and continue up to 2n. The 8-way BSA performs moderately well due to the repeated middle sequence, enhancing the hit rate. FIFO also shows moderate efficiency, replacing initially loaded blocks and repeating the first part of the sequence. For example, if n = 4, the sequence would be 0, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, repeated 4 times.</div>
