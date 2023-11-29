@@ -1,5 +1,13 @@
 # CSARCH2-Simulation-Project
-Cache Simulation Project of Group 10 - CSARCH2 S11
+**Cache Simulation Project of Group 10 - CSARCH2 S11**
+
+<br>
+
+**Members:** <br>
+Cabinbin, Pierre Genric Navarro <br>
+Cada, Louis Ezechiel Limbo <br>
+Chong, Hans Kirzen Yu <br>
+Pecson, Richard John Jr. Quitain <br>
 
 
 ## 8-way Block Set Associative, First In First Out
