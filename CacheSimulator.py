@@ -5,7 +5,7 @@ from tkinter import ttk
 class CacheSimulator:
     def __init__(self, root):
         self.root = root
-        self.root.title("Cache Simulator")
+        self.root.title("Cache Simulator by Group 10 - CSARCH2 S11")
 
         # GUI components
         self.test_case_var = tk.StringVar()
@@ -29,7 +29,11 @@ class CacheSimulator:
 
         # Step-by-step snapshot variables
         self.snapshot_canvas = tk.Canvas(self.root, width=400, height=150, bg="black")
-        self.snapshot_canvas.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
+        self.snapshot_canvas.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
+
+        # Text widget to display terminal output
+        self.terminal_output = tk.Text(self.root, height=5, width=50, state=tk.DISABLED)
+        self.terminal_output.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
 
     def setup_gui(self):
         # Test case selection
@@ -75,11 +79,15 @@ class CacheSimulator:
         elif self.test_case_var.get() == "c":
             n = self.memory_blocks
             for _ in range(4):
-                sequence.extend(range(n-1))
+                sequence.extend(range(n - 1))
                 sequence.extend(range(1, n))
                 sequence.extend(range(n, 2 * n))
 
-        print(sequence)
+        # Display the sequence in the GUI
+        self.terminal_output.config(state=tk.NORMAL)
+        self.terminal_output.insert(tk.END, str(sequence) + "\n")
+        self.terminal_output.config(state=tk.DISABLED)
+
         return sequence
 
     def run_simulation(self):
@@ -184,3 +192,4 @@ if __name__ == "__main__":
     app = CacheSimulator(root)
     root.resizable(width=False, height=False)
     root.mainloop()
+
