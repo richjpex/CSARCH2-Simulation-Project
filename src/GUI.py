@@ -17,26 +17,25 @@ class CacheSimulatorGUI:
 
 
         self.test_case_label = ttk.Label(root, text="Test Cases:")
-        self.test_case_values = ['Default', 'Sequential', 'Random', 'Mid-Repeating']
+        self.test_case_values = ['Sequential', 'Random', 'Mid-Repeating']
         self.selected_test_case = tk.StringVar(value=self.test_case_values[0])  # Set default value
         for i, test_case in enumerate(self.test_case_values):
-            row_position = i // 2 + 3  # Start from row 3 and alternate every 2 radio buttons
-            col_position = i % 2
+            row_position = i + 3  # Start from row 3 and alternate every 2 radio buttons
             radio_button = ttk.Radiobutton(root, text=test_case, variable=self.selected_test_case, value=test_case)
-            radio_button.grid(row=row_position, column=col_position, padx=5, pady=5)
+            radio_button.grid(row=row_position, column=0, padx=5, pady=5, sticky="w")
         
         # Checkbox for step-by-step tracing
         self.step_by_step_var = tk.IntVar()
         self.step_by_step_checkbutton = ttk.Checkbutton(
             self.root, text="Step-by-Step Tracing", variable=self.step_by_step_var
         )
-        self.step_by_step_checkbutton.grid(row=5, column=0, columnspan=2, pady=5)
+        self.step_by_step_checkbutton.grid(row=6, column=0, columnspan=2, pady=5)
 
         # Button to start cache simulation
         self.start_button = ttk.Button(
             self.root, text="Simulate Cache", command=self.start_simulation
         )
-        self.start_button.grid(row=6, column=0, columnspan=2, pady=10)
+        self.start_button.grid(row=7, column=0, columnspan=2, pady=10)
 
         # Cache simulator instance
         self.cache_simulator = None
@@ -54,17 +53,17 @@ class CacheSimulatorGUI:
         ]
         for i, label_text in enumerate(labels_text):
             label = ttk.Label(self.root, text=label_text)
-            label.grid(row=i + 7, column=0, padx=5, pady=5, sticky="e")
+            label.grid(row=i + 8, column=0, padx=5, pady=5, sticky="e")
             self.output_labels.append(label)
 
         # Text area for cache simulation log
         self.text_log = tk.Text(self.root, height=10, width=40, state=tk.DISABLED)
-        self.text_log.grid(row=13, column=0, columnspan=2, pady=10)
+        self.text_log.grid(row=15, column=0, columnspan=2, pady=10)
 
         # Configure grid weights
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
-        self.root.rowconfigure(12, weight=1)
+        self.root.rowconfigure(15, weight=1)
 
         # Initialize memory access sequence and cache block counts
         self.memory_access_sequence = []
@@ -89,23 +88,19 @@ class CacheSimulatorGUI:
                 random.randint(0, 2 * (memory_block // 2) - 1) for _ in range(4 * (memory_block // 2))
             ]
             self.memory_access_sequence = memory_access_sequence
-
-            if selected_test_case == 'Default':
-                # Run the cache simulation for Default
-                results = self.cache_simulator.run_simulation(memory_access_sequence)
-
                 
-            elif selected_test_case == 'Sequential':
+            if selected_test_case == 'Sequential': 
                 #up to 2n Cache blocks, repeat four times without refreshin or something
-                self.cache_blocks *= 2
+                pass
+
+            elif selected_test_case == 'Random':
+                #4n Cache block?
+                self.cache_blocks *= 4
 
                 #put in logic for repeating four times inside
-                results = self.cache_simulator.test_simulation_sequential(memory_access_sequence)
-                
-            elif selected_test_case == 'Random':
-                #4n Cache block
-
+                results = self.cache_simulator.run_simulation(memory_access_sequence)
                 pass
+
             elif selected_test_case == 'Mid-Repeating':
                 # start at 0, then repeat middle sequence to n-1 blocks, then contunue to 2n, then repeat 4 times.
                 # ie. n=8 == 0, 1,2,3,4,5,6, 1,2,3,4,5,6, 7,8,9,10,11,12,13,14,15 {4x}
