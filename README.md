@@ -28,31 +28,6 @@ In summary, the 8-way Block Set Associative, First In First Out (8-way BSA + FIF
 
 *This is how the algorithm should work.*
 
-## Program Specifications
-Common Specifications
- * 32 Cache Blocks
- * 16 Cache Line
- *  non load-through Read Policy
- * First In First Out (FIFO) Block Replacement Algorithm
- * 8-way Set Associative
- * 8 sets
- * 10ns Memory Access Time
- * 1ns Cache Access Time
-
-Inputs
-* Memory Blocks - Enter the value of memory blocks
-* Test Case - User can choose either Sequential, Random or Mid-Repeat
-
-Outputs
-* Memory Access Count
-* Cache Hit Count
-* Cache Miss Count
-* Cache Hit Rate
-* Cache Miss Rate
-* Average Memory Access Time
-* Total Memory Access Time
-
-
 ## Program Overview
 
 <div align="justify">The program is an 8-way BSA + FIFO cache simulation implemented in Python. It includes:
