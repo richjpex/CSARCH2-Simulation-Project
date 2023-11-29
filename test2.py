@@ -32,9 +32,9 @@ class CacheSimulator:
         test_case_label = tk.Label(self.root, text="Select Test Case:")
         test_case_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
 
-        test_case_a_button = ttk.Radiobutton(self.root, text="Test Case A", variable=self.test_case_var, value="a")
-        test_case_b_button = ttk.Radiobutton(self.root, text="Test Case B", variable=self.test_case_var, value="b")
-        test_case_c_button = ttk.Radiobutton(self.root, text="Test Case C", variable=self.test_case_var, value="c")
+        test_case_a_button = ttk.Radiobutton(self.root, text="Sequential Sequence", variable=self.test_case_var, value="a")
+        test_case_b_button = ttk.Radiobutton(self.root, text="Random Sequence", variable=self.test_case_var, value="b")
+        test_case_c_button = ttk.Radiobutton(self.root, text="Mid-repeat Sequence", variable=self.test_case_var, value="c")
 
         test_case_a_button.grid(row=0, column=1, padx=10, pady=10)
         test_case_b_button.grid(row=0, column=2, padx=10, pady=10)
