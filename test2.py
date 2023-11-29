@@ -124,7 +124,8 @@ class CacheSimulator:
         y_offset = 40
 
         # Display "Final Cache Snapshot:" text
-        self.snapshot_canvas.create_text(x_offset - 45, y_offset - 20, text="Final Cache Snapshot:", anchor=tk.W, fill="white", font=("Consolas", 10, "bold"))
+        self.snapshot_canvas.create_text(x_offset - 45, y_offset - 20, text="Final Cache Snapshot:", anchor=tk.W,
+                                         fill="gold", font=("Consolas", 10, "bold"))
 
         non_empty_cache_sets = [(i, cache_set) for i, cache_set in enumerate(self.cache) if cache_set]
 
@@ -132,13 +133,24 @@ class CacheSimulator:
             # Draw set label
             label_x = x_offset - 10
             label_y = y_offset + i * (block_height + 5) + block_height // 2
-            self.snapshot_canvas.create_text(label_x, label_y, text=f"Set {i}", anchor=tk.E, fill="white", font=("Consolas", 10))
+            self.snapshot_canvas.create_text(label_x, label_y, text=f"Set {i}", anchor=tk.E, fill="white",
+                                             font=("Consolas", 10))
 
-            for j, address in enumerate(cache_set):
+            for j in range(self.set_size):
                 x = x_offset + j * (block_width + 10)
                 y = y_offset + i * (block_height + 5)
-                self.snapshot_canvas.create_rectangle(x, y, x + block_width, y + block_height, fill="lightgreen", outline="black")
-                self.snapshot_canvas.create_text(x + block_width // 2, y + block_height // 2, text=str(address), font=("Consolas", 10))
+                if j < len(cache_set):
+                    address = cache_set[j]
+                    self.snapshot_canvas.create_rectangle(x, y, x + block_width, y + block_height, fill="lightgreen",
+                                                          outline="black")
+                    self.snapshot_canvas.create_text(x + block_width // 2, y + block_height // 2, text=str(address),
+                                                     font=("Consolas", 10))
+                else:
+                    # Empty block, indicate "N/A"
+                    self.snapshot_canvas.create_rectangle(x, y, x + block_width, y + block_height, fill="gray",
+                                                          outline="black")
+                    self.snapshot_canvas.create_text(x + block_width // 2, y + block_height // 2, text="N/A",
+                                                     font=("Consolas", 10))
 
     def display_statistics(self):
         hit_rate = self.cache_hit_count / self.memory_access_count * 100 if self.memory_access_count > 0 else 0
