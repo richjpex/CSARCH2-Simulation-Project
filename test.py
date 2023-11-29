@@ -25,8 +25,10 @@ class Cache:
             for j in range(self.line):
                 if self.cache[block][i][j] == address:
                     self.stats['hits'] += 1
+                    self.stats['total_access_time'] += 1
                     return
         self.stats['misses'] += 1
+        self.stats['total_access_time'] += 10
         index = self.pointer % self.blocks
         self.cache[block][index // self.line][index % self.line] = address
         self.pointer += 1
@@ -50,8 +52,30 @@ class Cache:
 if __name__ == '__main__':
     n = int(input('Enter the number of memory blocks: '))
     cache = Cache()
-    for i in range(n * 4):
-        address = random.randint(0, cache.blocks * cache.line - 1)
-        cache.read(address)
-        cache.stats['total_access_time'] += 1
+
+    #Test case 1: Sequential memory access sequence
+    print("1. Sequential memory access sequence")
+    for _ in range(4):  # Repeat the sequence four times
+        for i in range(n * 2):
+            address = i % (n * 2)  # Generate addresses from 0 to 2n-1
+            cache.read(address)
+    cache.print_stats()
+
+    #Reset stats
+    cache.stats = {
+        'accesses': 0,
+        'hits': 0,
+        'misses': 0,
+        'hit_rate': 0,
+        'miss_rate': 0,
+        'average_access_time': 0,
+        'total_access_time': 0,
+    }
+
+    # Test case 2: Random memory access sequence
+    print("2. Random memory access sequence")
+    for _ in range(4):  # Repeat the sequence four times
+        for i in range(n * 4):
+            address = random.randint(0, 4 * n - 1)  # Generate random addresses from 0 to 4n-1
+            cache.read(address)
     cache.print_stats()
