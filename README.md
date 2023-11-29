@@ -9,6 +9,29 @@ Cada, Louis Ezechiel Limbo <br>
 Chong, Hans Kirzen Yu <br>
 Pecson, Richard John Jr. Quitain <br>
 
+## Program Specifications
+Common Specifications
+ * `32` Cache Blocks
+ * `16` Cache Line
+ *  `non load-through` Read Policy
+ * `First In First Out (FIFO)` Block Replacement Algorithm
+ * `8-way` Set Associative
+ * `8` sets
+ * `10ns` Memory Access Time
+ * `1ns` Cache Access Time
+
+Inputs
+* `Memory Blocks` - Enter the value of memory blocks
+* `Test Case` - User can choose either Sequential, Random or Mid-Repeat
+
+Outputs
+* `Memory Access Count`
+* `Cache Hit Count`
+* `Cache Miss Count`
+* `Cache Hit Rate`
+* `Cache Miss Rate`
+* `Average Memory Access Time`
+* `Total Memory Access Time`
 
 ## 8-way Block Set Associative, First In First Out
 <div align="justify"> The program is an 8-way BSA + FIFO cache simulation made in Python. It consists of: 3 test case choices from Sequential, Random, and Mid-repeating; An input for the amount of memory blocks the cache will simulate; A button to run the simulation once a valid input is made; the Simulation Statistics where we can observe the memory access count, cache hit and miss counts, cache hit and miss rates, average memory access time, and total memory access time; the Sequence Display, to show the values injected into the cache; and the Final Cache Snapshot which we can see how the memory is finally captured, a log of the values used to simulate the case can be seen in the terminal. A video is also made here to present the program's functionalities which can be accessed here: https://drive.google.com/file/d/1RDN49wOqMQtzKy7dVLMwO3oKOQxx8XUj/view?usp=sharing. </div>
