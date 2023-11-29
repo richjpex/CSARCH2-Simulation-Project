@@ -36,9 +36,9 @@ class CacheSimulator:
         test_case_label = tk.Label(self.root, text="Select Test Case:")
         test_case_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
 
-        test_case_a_button = ttk.Radiobutton(self.root, text="Test Case A", variable=self.test_case_var, value="a")
-        test_case_b_button = ttk.Radiobutton(self.root, text="Test Case B", variable=self.test_case_var, value="b")
-        test_case_c_button = ttk.Radiobutton(self.root, text="Test Case C", variable=self.test_case_var, value="c")
+        test_case_a_button = ttk.Radiobutton(self.root, text="Sequential Sequence", variable=self.test_case_var, value="a")
+        test_case_b_button = ttk.Radiobutton(self.root, text="Random Sequence", variable=self.test_case_var, value="b")
+        test_case_c_button = ttk.Radiobutton(self.root, text="Mid-repeat Sequence", variable=self.test_case_var, value="c")
 
         test_case_a_button.grid(row=0, column=1, padx=10, pady=10)
         test_case_b_button.grid(row=0, column=2, padx=10, pady=10)
@@ -67,18 +67,18 @@ class CacheSimulator:
         sequence = []
 
         if self.test_case_var.get() == "a":
-            # For Test Case A, generate a sequence that exceeds the cache associativity
-            sequence = list(range(2 * n * self.cache_lines))  # All misses
+            sequence = list(range(self.memory_blocks)) * 4
         elif self.test_case_var.get() == "b":
             if self.memory_blocks == 0:
                 return None
-            for _ in range(4 * self.cache_blocks):
-                sequence.append(random.randint(0, 4 * self.cache_blocks - 1))
+            sequence = [random.randint(0, self.memory_blocks - 1) for _ in range(64)]
         elif self.test_case_var.get() == "c":
+            n = self.cache_blocks // 2
             for _ in range(4):
-                sequence.extend(range(n))
+                sequence.extend(range(n-1))
                 sequence.extend(range(1, n))
                 sequence.extend(range(n, 2 * n))
+
         print(sequence)
         return sequence
 
@@ -147,12 +147,12 @@ class CacheSimulator:
         total_access_time = self.compute_total_time()
 
         stats_info = f"Memory Access Count: {self.memory_access_count}\n" \
-                     f"Cache Hit Count: {self.cache_hit_count}\n" \
-                     f"Cache Miss Count: {self.cache_miss_count}\n" \
-                     f"Cache Hit Rate: {hit_rate:.2f}%\n" \
-                     f"Cache Miss Rate: {miss_rate:.2f}%\n" \
-                     f"Average Memory Access Time: {avg_access_time:.2f} ns\n" \
-                     f"Total Memory Access Time: {total_access_time:.2f} ns"
+                    f"Cache Hit Count: {self.cache_hit_count}\n" \
+                    f"Cache Miss Count: {self.cache_miss_count}\n" \
+                    f"Cache Hit Rate: {hit_rate:.2f}%\n" \
+                    f"Cache Miss Rate: {miss_rate:.2f}%\n" \
+                    f"Average Memory Access Time: {avg_access_time:.2f} ns\n" \
+                    f"Total Memory Access Time: {total_access_time:.2f} ns"
 
         self.stats_text.config(state=tk.NORMAL)
         self.stats_text.delete(1.0, tk.END)
