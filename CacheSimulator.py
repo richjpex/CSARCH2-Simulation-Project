@@ -31,9 +31,16 @@ class CacheSimulator:
         self.snapshot_canvas = tk.Canvas(self.root, width=400, height=150, bg="black")
         self.snapshot_canvas.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
 
-        # Text widget to display terminal output
-        self.terminal_output = tk.Text(self.root, height=5, width=50, state=tk.DISABLED)
-        self.terminal_output.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
+        # Text widget to display terminal output with scrollbar
+        self.terminal_output_frame = tk.Frame(self.root)
+        self.terminal_output_frame.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
+
+        self.terminal_output = tk.Text(self.terminal_output_frame, height=5, width=48, wrap=tk.WORD, state=tk.DISABLED)
+        self.terminal_output.grid(row=0, column=0, padx=5, pady=5, sticky='nsew')
+
+        scroll_y = tk.Scrollbar(self.terminal_output_frame, command=self.terminal_output.yview)
+        scroll_y.grid(row=0, column=1, sticky='nsew')
+        self.terminal_output['yscrollcommand'] = scroll_y.set
 
     def setup_gui(self):
         # Test case selection
@@ -91,7 +98,14 @@ class CacheSimulator:
         return sequence
 
     def run_simulation(self):
-        self.memory_blocks = int(self.mem_blocks_entry.get())
+        try:
+            self.memory_blocks = int(self.mem_blocks_entry.get())
+        except ValueError:
+            self.terminal_output.config(state=tk.NORMAL)
+            self.terminal_output.insert(tk.END, "Error: Please enter a valid number for Memory Blocks!\n")
+            self.terminal_output.config(state=tk.DISABLED)
+            return  # Invalid input
+
         self.access_sequence = self.generate_test_case()
 
         if self.access_sequence is None:
@@ -192,4 +206,3 @@ if __name__ == "__main__":
     app = CacheSimulator(root)
     root.resizable(width=False, height=False)
     root.mainloop()
-
