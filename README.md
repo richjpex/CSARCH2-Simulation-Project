@@ -15,7 +15,6 @@ Common Specifications
  *  non load-through Read Policy
  * First In First Out (FIFO) Block Replacement Algorithm
  * 8-way Set Associative
- * 8 sets
  * 10ns Memory Access Time
  * 1ns Cache Access Time
 
