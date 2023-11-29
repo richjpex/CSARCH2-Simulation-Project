@@ -13,6 +13,13 @@ Pecson, Richard John Jr. Quitain <br>
 ## 8-way Block Set Associative, First In First Out
 <div align="justify"> The program is an 8-way BSA + FIFO cache simulation made in Python. It consists of: 3 test case choices from A to C representing Sequential, Random, and Mid-repeating; An input for the amount of memory blocks the cache will simulate; A button to run the simulation once a valid input is made; the Simulation Statistics where we can observe the memory access count, cache hit and miss counts, cache hit and miss rates, average memory access time, and total memory access time; and the Final Cache Snapshot which we can see how the memory is finally captured, a log of the values used to simulate the case can be seen in the terminal. A video is also made here to present the program's functionalities. </div>
 
+<br><br>
+
+![csarch](https://github.com/richjpex/CSARCH2-Simulation-Project/assets/148311130/ff4c49bc-3252-4b98-95af-8d606e4b8f46)
+<br>
+This is how the algorithm should work.
+
+
 # Test Cases
 N is the number of cache blocks.
 
